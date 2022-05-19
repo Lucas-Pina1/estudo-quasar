@@ -67,15 +67,43 @@
       />
       <q-select
         outlined
-        v-model="model"
-        :options="optionsTipoPessoa"
+        v-model="form.tipoPessoa"
+        :options="optionsTipoPesoas"
         label="Tipo de pessoa"
         emit-value
         map-options
+        class="col-md-12 col-sm-12 col-xs-12"
         :rules="[
           (val) => (val && val.length > 0) || 'Tipo de pessoa obrigatório',
         ]"
-      />.
+      />
+
+      <span class="text-bold">Sexo:</span>
+      <q-option-group
+        :options="optionsSexo"
+        label="Sexo"
+        type="radio"
+        v-model="form.sexo"
+        class="col-md-12 col-sm-12 col-xs-12"
+      />
+
+      <span class="text-bold">Possui dificuldades?</span>
+      <q-option-group
+        :options="optionsDificuldades"
+        label="Dificuldades"
+        type="checkbox"
+        v-model="form.dificuldades"
+        class="col-md-12 col-sm-12 col-xs-12"
+      />
+
+      <q-toggle
+        label="Receber notificações?"
+        color="primary"
+        icon="mail"
+        v-model="form.notificacoes"
+        size="lg"
+      />
+
       <div class="col-12">
         <q-btn
           label="Cadastrar"
@@ -87,7 +115,8 @@
           label="Resetar"
           type="reset"
           color="default"
-          class="float-right text-dark q-mr-md"
+          text-color="black"
+          class="float-right q-mr-md"
         />
       </div>
     </q-form>
@@ -107,10 +136,24 @@ export default defineComponent({
         email: "",
         telefone: "",
         tipoPessoa: "",
+        sexo: "NI",
+        dificuldades: [],
+        notificacoes: false,
       },
       optionsTipoPesoas: [
         { label: "Pessoa Física", value: "pf" },
         { label: "Pessoa Jurídica", value: "pj" },
+      ],
+      optionsSexo: [
+        { label: "Não informado", value: "NI" },
+        { label: "Masculino", value: "M" },
+        { label: "Feminino", value: "F" },
+      ],
+      optionsDificuldades: [
+        { label: "Motoras", value: "motoras" },
+        { label: "Visuais", value: "visuais" },
+        { label: "Respiratórias", value: "respiratorias" },
+        { label: "Não", value: "Não" },
       ],
     };
   },
@@ -137,6 +180,9 @@ export default defineComponent({
         email: "",
         telefone: "",
         tipoPessoa: "",
+        sexo: "NI",
+        dificuldades: [],
+        notificacoes: false,
       };
     },
   },
